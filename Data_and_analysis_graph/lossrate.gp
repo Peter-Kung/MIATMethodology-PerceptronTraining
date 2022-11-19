@@ -1,6 +1,5 @@
 set terminal postscript color noenhanced      ## setting the term
 set output "loss_figure.ps"                ## 輸出檔檔名與副檔名
-set key center 
 set title "Loss Value in Each Epoch"
 set xlabel "Epoch"
 set ylabel "Loss value"
