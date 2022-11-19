@@ -5,7 +5,8 @@ void main()
 
 		signal(SIGINT,handler);
 
-		printf("X0 = %d,X1 = %d,X2 = %d,X3 = %d,X4 = %d,X5 = %d,X6 = %d\n",X0 ,X1 ,X2 ,X3 ,X4 ,X5 ,X6 );
+		
+
 		while(1)
 		{
 				datapath0();
@@ -271,81 +272,79 @@ void datapath5()
 }
 void action0()
 {
-		//printf("action0 activate !!\n");
 }
 void input_weight_bias()
 {
-		//printf("input_weight_bias activate !!\n");
 		puts("enter w1, w2, bias: ");
 		scanf("%f %f %f", &weight[0], &weight[1], &bias);
+		//puts("|w1       | w2     | bias   | X1     | X2     | alpha     | y     | label     |eta*(label-y)| dw1  |dw2     | dtheta  |  ");
 }
 void epoch_trial()
 {
-		//printf("epoch_trial activate !!\n");
 }
 void epoch_decrease()
 {
-		//printf("epoch_decrease activate !!\n");
 		epoch--;
 }
 void A01()
 {
-		//printf("A01 activate !!\n");
 		datapath4();
 		grafcet4();
-		//printf("X40 = %d,X41 = %d,X42 = %d,X43 = %d,X44 = %d,X45 = %d,X46 = %d\n",X40 ,X41 ,X42 ,X43 ,X44 ,X45 ,X46 );
 }
 void A02()
 {
-		//printf("A02 activate !!\n");
 		datapath5();
 		grafcet5();
-		//printf("X50 = %d,X51 = %d,X52 = %d,X53 = %d,X54 = %d,X55 = %d,X56 = %d,X57 = %d\n",X50 ,X51 ,X52 ,X53 ,X54 ,X55 ,X56 ,X57 );
 }
 void action()
 {
-		//printf("action activate !!\n");
 }
 void action1()
 {
-		//printf("action1 activate !!\n");
 }
 void initialize_count1_net1()
 {
-		//printf("initialize_count1_net1 activate !!\n");
 		count1 = sizeof(dataset) / sizeof(int [2]);
 		net1 = 0;
 }
 void count1_trial()
 {
-		//printf("count1_trial activate !!\n");
 }
 void count1_decrease()
 {
-		//printf("count1_decrease activate !!\n");
 		count1--;
 }
 void stimulate1()
 {
-		//printf("stimulate1 activate !!\n");
-		//net1=0;
-		for(int i=0;i<nb_in && count1 >= 0;i++)net1+=dataset[count1][i]*weight[i];
+
+		for(int i=0;i<nb_in && count1 >= 0;i++)
+			net1+=dataset[count1][i]*weight[i];
 
 		if (count1 >= 0)
 			net1+=bias;
 }
 void activation_function1()
 {
-		//printf("activation_function1 activate !!\n");
 		y = 1.0/(1.0+exp(-net1));
 
 }
 void backward()
 {
-		//printf("backward activate !!\n");
+	//printf("count1: %d\n", count1);
+	
+	/*
+	if (count1 >= 0){
+		printf("|%5.5f | %5.5f | %5.5f | %5d | %5d | %5.5f | %5.5f | %5d |  %5.5f | %5d | %5d | %5.5f |\n", 
+				weight[0], weight[1], bias, 
+				dataset[count1][0], dataset[count1][1], 0.0,
+				y, label[count1], eta * (label[count1] - y), 
+				dataset[count1][0], dataset[count1][1], 1.0
+				);
+	}
+	*/
 		for(int i=0;i<nb_in && count1 >= 0;i++) { 
 				weight[i] = weight[i] + eta*(float)(label[count1] - y) * dataset[count1][i];
-				//printf("count: %d, %f * %f * %d\n", count1, y, (float)(label[count1] - y), dataset[count1][i]);
+		
 		}
 
 		if (count1 >= 0)
@@ -353,28 +352,22 @@ void backward()
 }
 void action2()
 {
-		//printf("action2 activate !!\n");
 }
 void initialize_count2_net2_losssum()
 {
-		//printf("initialize_count2_net2_losssum activate !!\n");
 		net2 = 0;
 		count2 = sizeof(dataset) / sizeof(int [2]);
 		loss_sum =  0;
 }
 void count2_trial()
 {
-		//printf("count2_trial activate !!\n");
 }
 void count2_decrease()
 {
-		//printf("count2_decrease activate !!\n");
 		count2--;
 }
 void stimulate2()
 {
-		//printf("stimulate2 activate !!\n");
-		//net2=0;
 		for(int i=0;i<nb_in && count2 >= 0;i++)
 			net2+=dataset[count2][i]*weight[i];
 		
@@ -384,21 +377,15 @@ void stimulate2()
 }
 void activation_function2()
 {
-		//printf("activation_function2 activate !!\n");
 		y = 1.0/(1.0+exp(-net2));
-		//printf("net: %f\n", (float)y);
 }
 void add_loss_value()
 {
-		//printf("add_loss_value activate !!\n");
 		if (count2 >= 0) {
 			loss_sum += sqrt((float)(y-label[count2])*(y-label[count2]));
-			//printf("y: %f", (float)(y));
 		}
 }
 void print_loss()
 {
-		//printf("print_loss activate !!\n");
-		//printf("epoch %d: %f\n", 50 - epoch, loss_sum);
-		printf("epoch: %d. w1: %f, w2: %f, bias: %f loss: %f\n", total - epoch, weight[0], weight[1], bias, loss_sum);
+		printf("%d %f\n", 50 - epoch, loss_sum);  /*eta * (label - y) */
 }

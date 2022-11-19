@@ -38,8 +38,8 @@ void add_loss_value();
 void print_loss();
 void handler() ;
 
-float weight[2], bias, net1, net2, eta = 3, loss_sum;
+float weight[2], bias, net1, net2, eta = 15, loss_sum, y;
 int dataset[][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 int label[] = {0, 0, 0, 1};
 int nb_in = sizeof(dataset[0]) / sizeof(int);
-int y,  total = EPOCH, epoch = EPOCH, count1, count2;
+int total = EPOCH, epoch = EPOCH, count1, count2;
