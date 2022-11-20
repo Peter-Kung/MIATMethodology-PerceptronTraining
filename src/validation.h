@@ -6,6 +6,8 @@
 
 
 #define EPOCH 50
+//#define LOSS_VAL
+#define LEARNING_INFO
 
 int X0 = 1, X1 = 0, X2 = 0, X3 = 0, X4 = 0, X40 = 1, X41 = 0, X42 = 0, X43 = 0, X44 = 0, X45 = 0, X46 = 0, X5 = 0, X50 = 1, X51 = 0, X52 = 0, X53 = 0, X54 = 0, X55 = 0, X56 = 0, X57 = 0, X6 = 0;
 void grafcet0();

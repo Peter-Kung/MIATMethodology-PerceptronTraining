@@ -277,7 +277,9 @@ void input_weight_bias()
 {
 		puts("enter w1, w2, bias: ");
 		scanf("%f %f %f", &weight[0], &weight[1], &bias);
+#ifdef LEARNING_INFO
 		puts("|w1       | w2     | bias   | X1     | X2     | alpha     | y     | label     |eta*(label-y)| dw1  |dw2     | dtheta  |  ");
+#endif
 }
 void epoch_trial()
 {
@@ -332,7 +334,8 @@ void backward()
 {
 	//printf("count1: %d\n", count1);
 	
-	
+
+#ifdef LEARNING_INFO
 	if (count1 >= 0){
 		printf("|%5.5f | %5.5f | %5.5f | %5d | %5d | %5.5f | %5.5f | %5d |  %5.5f | %5d | %5d | %5.5f |\n", 
 				weight[0], weight[1], bias, 
@@ -341,6 +344,7 @@ void backward()
 				dataset[count1][0], dataset[count1][1], 1.0
 				);
 	}
+#endif
 	
 		for(int i=0;i<nb_in && count1 >= 0;i++) { 
 				weight[i] = weight[i] + eta*(float)(label[count1] - y) * dataset[count1][i];
@@ -387,5 +391,7 @@ void add_loss_value()
 }
 void print_loss()
 {
-		//printf("%d %f\n", 50 - epoch, loss_sum);  /*eta * (label - y) */
+#ifdef LOSS_VAL
+		printf("%d %f\n", 50 - epoch, loss_sum);  /*eta * (label - y) */
+#endif
 }
