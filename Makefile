@@ -1,5 +1,5 @@
 SRC_RUN:= ./src/main.c
-SRC_VAL := ./src/validatation.c
+SRC_VAL := ./src/validation.c
 OBJ := ./test
 
 
